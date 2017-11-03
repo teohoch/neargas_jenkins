@@ -37,7 +37,7 @@ node {
     stage('Push to Prod'){
       if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
         sh '''
-        CONTAINERS=$(docker ps -a --filter name=neargas_light --format "{{.Names}}")
+        CONTAINERS=$(docker ps -a --filter name=neargas-light --format "{{.Names}}")
                     if ! [ -z "$CONTAINERS" ]
                     then
                          docker restart $CONTAINERS
