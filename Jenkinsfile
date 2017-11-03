@@ -1,24 +1,11 @@
 node {
-  def app
-  def db
+  agent { dockerfile { dir 'neargas' additionalBuildArgs '--build-arg BENCINERA_DATABASE_PASSWORD=mysecretpassword' } }
 
-  stage ('Clone Repository') {
-    checkout scm
-  }
+  stages {
+    sh '''
+    echo "hola"
+    ping hochfarber.com
+    '''
 
-  stage('Build Image') {
-    db = docker.build("postdb", "-f psql/Dockerfile .").withRun('-e "POSTGRES_PASSWORD=mysecretpassword" "BENCINERA_DATABASE_PASSWORD=mysecretpassword"')
-
-    app = docker.build("neargas","-f neargas/Dockerfile .").withRun('-e "BENCINERA_DATABASE_PASSWORD=mysecretpassword"')
-  }
-  stage('Testing')
-  {
-    db.inside.("--link ${db.id}:db")
-    app.inside.("--link ${db.id}:db"){
-      sh '''
-      echo "HOLAA"
-      ping db
-      '''
-    }
   }
 }
