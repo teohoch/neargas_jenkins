@@ -10,6 +10,7 @@ node {
       app = docker.build("neargas","-f neargas/Dockerfile .")
       app.inside{
         sh'''
+        rm -rf neargass
         git clone https://github.com/teohoch/neargass.git
         cp neargas/database.yml neargass/config/database.yml
         '''
