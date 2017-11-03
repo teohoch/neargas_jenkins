@@ -12,6 +12,7 @@ node {
   {
       sh '''
       pwd
+      ls
       rspec spec --format html --out rspec_results/results.html --format RspecJunitFormatter --out rspec_results/results.xml
       '''
 
