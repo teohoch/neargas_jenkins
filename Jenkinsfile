@@ -18,6 +18,10 @@ node {
           '''
         }
         finally{
+          echo currentBuild.result 
+          sh'''
+          ls
+          '''
           junit keepLongStdio: true, testResults: 'rspec_results/*.xml'
         }
       }
