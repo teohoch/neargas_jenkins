@@ -8,15 +8,18 @@ node {
 
     stage('Build Image') {
       app = docker.build("neargas","-f neargas/Dockerfile .")
+      app.inside{
+        sh'''
+        git clone https://github.com/teohoch/neargass.git
+        '''
+      }
     }
     stage('Testing')
     {
       app.inside{
         try{
           sh '''
-          ruby -v
-          pwd
-          ls
+          cd neargass
           bundle exec rspec spec --format html --out rspec_results/results.html --format RspecJunitFormatter --out rspec_results/results.xml
           '''
         }
