@@ -11,7 +11,8 @@ node {
   stage('Testing')
   {
       sh '''
-      bundle exec rspec spec --format html --out rspec_results/results.html --format RspecJunitFormatter --out rspec_results/results.xml
+      pwd
+      rspec spec --format html --out rspec_results/results.html --format RspecJunitFormatter --out rspec_results/results.xml
       '''
 
   }
