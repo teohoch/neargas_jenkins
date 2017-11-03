@@ -6,6 +6,6 @@ node {
   }
 
   stage('Build Image') {
-    app = docker.build("neargas/Dockerfile")
+    app = docker.build("neargas")
   }
 }
