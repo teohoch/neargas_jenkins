@@ -22,7 +22,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: hochfarber.com
   username: Bencinera
-  password: <%= ENV['BENCINERA_DATABASE_PASSWORD'] %>
+  password: mysecretpassword
 
 development:
   <<: *default
@@ -85,4 +85,4 @@ production:
   <<: *default
   database: Bencinera_production
   username: Bencinera
-  password: <%= ENV['BENCINERA_DATABASE_PASSWORD'] %>
+  password: mysecretpassword

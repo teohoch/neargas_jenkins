@@ -11,8 +11,15 @@ node {
   stage('Testing')
   {
       sh '''
-      echo "HOLAA"
-      ping hochfarber.com
+      bundle exec rspec spec --format html --out rspec_results/results.html --format RspecJunitFormatter --out rspec_results/results.xml
       '''
-    }
+
   }
+  post {
+        always {
+
+                junit keepLongStdio: true, testResults: 'rspec_results/*.xml'
+
+        }
+    }
+}
