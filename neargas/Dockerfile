@@ -23,8 +23,8 @@ RUN cd /neargass
 
 RUN bundle install
 
-COPY docker-entrypoint.sh /usr/local/bin/
-COPY database.yml /database.yml
+COPY neargas/docker-entrypoint.sh /usr/local/bin/
+COPY neargas/database.yml /database.yml
 RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
 
