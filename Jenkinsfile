@@ -15,8 +15,10 @@ node {
   {
     db.inside.("--link ${db.id}:db")
     app.inside.("--link ${db.id}:db"){
-      sh 'echo "HOLAA"
-      ping db'
+      sh '''
+      echo "HOLAA"
+      ping db
+      '''
     }
   }
 }
