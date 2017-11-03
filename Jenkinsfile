@@ -1,7 +1,7 @@
-pipeline {
+node {
 
   def app
-  stages {
+
     stage ('Clone Repository') {
       checkout scm
     }
@@ -12,26 +12,25 @@ pipeline {
     stage('Testing')
     {
       app.inside{
-        sh '''
-        bundle exec rspec spec --format html --out rspec_results/results.html --format RspecJunitFormatter --out rspec_results/results.xml
-        '''
+        try{
+          sh '''
+          bundle exec rspec spec --format html --out rspec_results/results.html --format RspecJunitFormatter --out rspec_results/results.xml
+          '''
+        }
+        finally{
+          junit keepLongStdio: true, testResults: 'rspec_results/*.xml'
+        }
       }
     }
     stage('Push to Prod'){
-      sh '''
-      CONTAINERS=$(docker ps -a --filter name=neargas_light --format "{{.Names}}")
-                  if ! [ -z "$CONTAINERS" ]
-                  then
-                       docker restart $CONTAINERS
-                  fi
-      '''
-    }
-  }
-  post {
-        always {
-
-                junit keepLongStdio: true, testResults: 'rspec_results/*.xml'
-
-        }
+      if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
+        sh '''
+        CONTAINERS=$(docker ps -a --filter name=neargas_light --format "{{.Names}}")
+                    if ! [ -z "$CONTAINERS" ]
+                    then
+                         docker restart $CONTAINERS
+                    fi
+        '''
+      }
     }
 }
