@@ -30,7 +30,7 @@ node {
           sh'''
           ls
           '''
-          junit keepLongStdio: true, testResults: 'rspec_results/*.xml'
+          junit keepLongStdio: true, testResults: 'neargass/rspec_results/*.xml'
         }
       }
     }
