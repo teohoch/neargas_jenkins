@@ -1,3 +1,3 @@
 FROM mdillon/postgis
 
-COPY create-database.sh  /docker-entrypoint-initdb.d/
+COPY psql/create-database.sh  /docker-entrypoint-initdb.d/
