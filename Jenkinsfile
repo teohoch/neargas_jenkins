@@ -11,6 +11,7 @@ node {
       app.inside{
         sh'''
         git clone https://github.com/teohoch/neargass.git
+        cp neargas/database.yml neargass/config/database.yml
         '''
       }
     }
