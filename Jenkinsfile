@@ -6,7 +6,7 @@ node {
   }
 
   stage('Build Image') {
-    app = docker.build("neargas","-f neargas/Dockerfile .").withRun('-e "BENCINERA_DATABASE_PASSWORD=mysecretpassword"')
+    app = docker.build("neargas","-f neargas/Dockerfile .")
   }
   stage('Testing')
   {
