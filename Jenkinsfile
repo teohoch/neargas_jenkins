@@ -10,11 +10,14 @@ node {
   }
   stage('Testing')
   {
+    app.inside{
       sh '''
       pwd
       ls
-      rspec spec --format html --out rspec_results/results.html --format RspecJunitFormatter --out rspec_results/results.xml
+      bundle exec rspec spec --format html --out rspec_results/results.html --format RspecJunitFormatter --out rspec_results/results.xml
       '''
+    }
+
 
   }
   post {
